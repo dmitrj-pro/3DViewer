@@ -3,8 +3,74 @@
 #include <QPen>
 #include <QColor>
 #include "base_figure.h"
+#include <fstream>
+#include <Generator/CodeGenerator.h>
+#include <Types/Exception.h>
 
 #define DAL 200
+
+#define SETTING_LANG "ui.lang"
+#define SETTING_LANG_FILE "ui.lang_file"
+
+#define L_TETRAHEDRON "base.Tetrahedron"
+#define L_HEXAHEDRON "base.Hexahedron"
+#define L_IMAGE "menu.image"
+#define L_IMG_TYPE "menu.image.type"
+#define L_IMG_PARALLEL "menu.image.parallel"
+#define L_IMG_CENTRAL "menu.image.central-one"
+#define L_LANG "menu.lang"
+
+void Viewer::LoadLang(){
+    ui->menuImage->setTitle(LANX(L_IMAGE));
+    ui->actionCentrOne->setText(LANX(L_IMG_CENTRAL));
+    ui->actionParallel->setText(LANX(L_IMG_PARALLEL));
+    ui->menuDraw_Type->setTitle(LANX(L_IMG_TYPE));
+
+    ui->element->clear();
+    ui->element->addItem(LANX(L_HEXAHEDRON));
+    ui->element->addItem(LANX(L_TETRAHEDRON));
+
+    ui->menuLang->setTitle(LANX(L_LANG));
+}
+
+inline void loadSetting(DP::Setting & res){
+    std::ifstream read;
+    read.open(CONFIG_FILE);
+    #define ADD(NAME, DEFAULT) \
+        if (!res.Conteins(NAME)) \
+            res.add(NAME, DEFAULT);
+
+    if (!read.fail()){
+        read * res;
+        read.close();
+    }
+    ADD(SETTING_LANG_FILE, "lang/ru.txt");
+    ADD(SETTING_LANG, "RUS");
+    #undef ADD
+}
+
+DP::String Viewer::LAN(const DP::String & X){
+    if (!_lang.Conteins(X))  {
+        DP::String str = "Key ";
+        str += X + " is not found is lang file.";
+        throw EXCEPTION(X);
+    }
+    return _lang.get(X);
+}
+
+QString Viewer::LANX(const DP::String & X){
+    if (!_lang.Conteins(X))  {
+        DP::String str = "Key ";
+        str += X + " is not found is lang file.";
+        throw EXCEPTION(X);
+    }
+    return QString::fromStdString(_lang.get(X));
+}
+
+void Viewer::resetType(){
+    ui->actionCentrOne->setChecked(false);
+    ui->actionParallel->setChecked(false);
+}
 
 Viewer::Viewer(QWidget *parent) :
     QMainWindow(parent),
@@ -17,27 +83,81 @@ Viewer::Viewer(QWidget *parent) :
 
 
     this->connect(ui->element, SIGNAL(currentIndexChanged(QString)), this, SLOT(changeObject(QString)));
-    connect(ui->actionStatic, SIGNAL(triggered(bool)), this, SLOT(onStaticViewer(bool)));
-    connect(ui->actionDinamic, SIGNAL(triggered(bool)), this, SLOT(onDinamicViewer(bool)));
+    connect(ui->actionParallel, SIGNAL(triggered(bool)), this, SLOT(onParallelViewer(bool)));
+    connect(ui->actionCentrOne, SIGNAL(triggered(bool)), this, SLOT(onCentrOneViewer(bool)));
+    connect(ui->actionEng, SIGNAL(triggered(bool)), this, SLOT(OnLangENG(bool)));
+    connect(ui->actionRus, SIGNAL(triggered(bool)), this, SLOT(OnLangRUS(bool)));
 
-    ui->element->addItem("Hexahedron");
-    ui->element->addItem("Tetrahedron");
+    loadSetting(_setting);
+
+    {
+        std::ifstream read;
+        read.open(_setting.get(SETTING_LANG_FILE));
+        if (read.fail())
+            throw EXCEPTION("Program is not installed. Reinstall it");
+        read * _lang;
+        read.close();
+        if (_setting.get(SETTING_LANG) == "ENG")
+            ui->actionEng->setChecked(true);
+        if (_setting.get(SETTING_LANG) == "RUS")
+            ui->actionRus->setChecked(true);
+    }
+
+    LoadLang();
+}
+
+void Viewer::SaveSetting(){
+    std::ofstream os;
+    os.open(CONFIG_FILE);
+    os << _setting;
+    os.close();
+}
+
+void Viewer::setLang(QString file){
+    ui->actionEng->setChecked(false);
+    ui->actionRus->setChecked(false);
+    _setting.add(SETTING_LANG_FILE, file.toStdString());
+    std::ifstream read;
+    read.open(file.toStdString());
+    if (read.fail())
+        throw EXCEPTION("Program is not installed. Reinstall it");
+    read * _lang;
+    read.close();
+    LoadLang();
+    SaveSetting();
+}
+
+void Viewer::OnLangENG(bool){
+    _setting.add(SETTING_LANG, "ENG");
+    setLang("lang/eng.txt");
+    ui->actionEng->setChecked(true);
+
+}
+
+void Viewer::OnLangRUS(bool){
+    _setting.add(SETTING_LANG, "RUS");
+    setLang("lang/ru.txt");
+    ui->actionRus->setChecked(true);
 }
 
 void Viewer::changeObject(QString str){
-    if (str == "Tetrahedron")
+    if (str == LANX(L_TETRAHEDRON))
         Tetrahedron(_figure);
-    if (str == "Hexahedron")
+    if (str == LANX(L_HEXAHEDRON))
         Hexahedron(_figure);
     Redraw();
 }
 
-void Viewer::onStaticViewer(bool){
+void Viewer::onParallelViewer(bool){
+    resetType();
+    ui->actionParallel->setChecked(true);
     _type = TypeDraw::NONE;
     Redraw();
 }
 
-void Viewer::onDinamicViewer(bool){
+void Viewer::onCentrOneViewer(bool){
+    resetType();
+    ui->actionCentrOne->setChecked(true);
     _type = TypeDraw::Persp;
     Redraw();
 }

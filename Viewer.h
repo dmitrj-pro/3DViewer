@@ -4,6 +4,9 @@
 #include <QMainWindow>
 #include <QGraphicsScene>
 #include "figure.h"
+#include <Parser/Setting.h>
+
+#define CONFIG_FILE "3view.conf"
 
 namespace Ui {
 class Viewer;
@@ -21,15 +24,27 @@ public:
 public slots:
     void changeObject(QString str);
     void resizeEvent(QResizeEvent* event);
-    void onStaticViewer(bool);
-    void onDinamicViewer(bool);
+    void onParallelViewer(bool);
+    void onCentrOneViewer(bool);
+    void OnLangENG(bool);
+    void OnLangRUS(bool);
 
 private:
     void Redraw();
+    void resetType();
+    void LoadLang();
+    void SaveSetting();
+    void setLang(QString);
+
+    DP::String LAN(const DP::String & str);
+    QString LANX(const DP::String & str);
     Ui::Viewer *ui;
     QGraphicsScene * _img;
     TypeDraw _type = TypeDraw::Persp;
     Figure<double> _figure;
+
+    DP::Setting _setting;
+    DP::Setting _lang;
 };
 
 #endif // VIEWER_H

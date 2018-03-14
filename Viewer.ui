@@ -54,12 +54,20 @@
      <property name="title">
       <string>Draw Type</string>
      </property>
-     <addaction name="actionStatic"/>
-     <addaction name="actionDinamic"/>
+     <addaction name="actionParallel"/>
+     <addaction name="actionCentrOne"/>
     </widget>
     <addaction name="menuDraw_Type"/>
    </widget>
+   <widget class="QMenu" name="menuLang">
+    <property name="title">
+     <string>lang</string>
+    </property>
+    <addaction name="actionRus"/>
+    <addaction name="actionEng"/>
+   </widget>
    <addaction name="menuImage"/>
+   <addaction name="menuLang"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -70,14 +78,39 @@
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
-  <action name="actionStatic">
+  <action name="actionParallel">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>Static</string>
    </property>
   </action>
-  <action name="actionDinamic">
+  <action name="actionCentrOne">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>Dinamic</string>
+   </property>
+  </action>
+  <action name="actionRus">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Rus</string>
+   </property>
+  </action>
+  <action name="actionEng">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Eng</string>
    </property>
   </action>
  </widget>

@@ -1,0 +1,11 @@
+[.base]
+Tetrahedron=Tetrahedron
+Hexahedron=Cube
+
+[.menu]
+image=Image
+lang=Language
+[.menu.image]
+type=Type of projection
+parallel=Parallel projection
+central-one=single-point Central

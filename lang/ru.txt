@@ -1,0 +1,11 @@
+[.base]
+Tetrahedron=Тетраэдр
+Hexahedron=Куб
+
+[.menu]
+image=Изображение
+lang=Язык
+[.menu.image]
+type=Тип проекции
+parallel=Параллельная проекция
+central-one=Центральная одноточечная
