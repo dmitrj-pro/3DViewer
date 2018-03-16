@@ -1,7 +1,7 @@
 #ifndef FIGURE
 #define FIGURE
 
-#include "line.h"
+#include "Line.h"
 #include <DPLib.conf.h>
 #include <Generator/CodeGenerator.h>
 #include <cmath>

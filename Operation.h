@@ -1,8 +1,8 @@
 #ifndef DOPERATION
 #define DOPERATION
 
-#include "matrix.h"
-#include "point.h"
+#include "Matrix.h"
+#include "Point.h"
 #include <cmath>
 #include <iostream>
 

@@ -1,8 +1,8 @@
 #ifndef LINE
 #define LINE
 
-#include "point.h"
-#include "2doperation.h"
+#include "Point.h"
+#include "Operation.h"
 
 template <typename T>
 class Line{

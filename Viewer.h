@@ -3,10 +3,13 @@
 
 #include <QMainWindow>
 #include <QGraphicsScene>
-#include "figure.h"
+#include "Figure.h"
 #include <Parser/Setting.h>
 
 #define CONFIG_FILE "3view.conf"
+
+#define SETTING_LANG "ui.lang"
+#define SETTING_LANG_FILE "ui.lang_file"
 
 namespace Ui {
 class Viewer;

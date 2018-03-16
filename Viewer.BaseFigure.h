@@ -1,7 +1,7 @@
 #ifndef BASE_FIGURE
 #define BASE_FIGURE
 
-#include "figure.h"
+#include "Figure.h"
 #include <cmath>
 
 

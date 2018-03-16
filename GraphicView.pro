@@ -13,18 +13,21 @@ TEMPLATE = app
 
 CONFIG += c++11
 
-INCLUDEPATH += /INCLUDE/
-LIBS += /INCLUDE/libdp.a
+INCLUDEPATH += /home/INCLUDE/
+LIBS += /home/INCLUDE/libdp.a
 
 SOURCES += main.cpp\
-        Viewer.cpp
+        Viewer.cpp \
+        Viewer.interface.cpp \
+        Viewer.operation.cpp \
+        Viewer.Drawer.cpp
 
 HEADERS  += Viewer.h \
-    matrix.h \
-    point.h \
-    2doperation.h \
-    line.h \
-    figure.h \
-    base_figure.h
+    Matrix.h \
+    Point.h \
+    Operation.h \
+    Line.h \
+    Figure.h \
+    Viewer.BaseFigure.h
 
 FORMS    += Viewer.ui

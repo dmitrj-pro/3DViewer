@@ -2,7 +2,7 @@
 #define POINT
 
 #include <DPLib.conf.h>
-#include "matrix.h"
+#include "Matrix.h"
 #include <Generator/CodeGenerator.h>
 #include <cmath>
 
