@@ -7,6 +7,8 @@
 #include <Generator/CodeGenerator.h>
 #include <Types/Exception.h>
 
+#include <iostream>
+
 #define DAL 200
 
 #define SETTING_LANG "ui.lang"
@@ -20,6 +22,11 @@
 #define L_IMG_CENTRAL "menu.image.central-one"
 #define L_LANG "menu.lang"
 
+#define L_CONTROL_ROTATE_X "control.rotate_x"
+#define L_CONTROL_ROTATE_Y "control.rotate_y"
+#define L_CONTROL_ROTATE_Z "control.rotate_z"
+
+
 void Viewer::LoadLang(){
     ui->menuImage->setTitle(LANX(L_IMAGE));
     ui->actionCentrOne->setText(LANX(L_IMG_CENTRAL));
@@ -31,6 +38,9 @@ void Viewer::LoadLang(){
     ui->element->addItem(LANX(L_TETRAHEDRON));
 
     ui->menuLang->setTitle(LANX(L_LANG));
+    ui->rotate_x->setText(LANX(L_CONTROL_ROTATE_X));
+    ui->rotate_y->setText(LANX(L_CONTROL_ROTATE_Y));
+    ui->rotate_z->setText(LANX(L_CONTROL_ROTATE_Z));
 }
 
 inline void loadSetting(DP::Setting & res){
@@ -47,24 +57,6 @@ inline void loadSetting(DP::Setting & res){
     ADD(SETTING_LANG_FILE, "lang/ru.txt");
     ADD(SETTING_LANG, "RUS");
     #undef ADD
-}
-
-DP::String Viewer::LAN(const DP::String & X){
-    if (!_lang.Conteins(X))  {
-        DP::String str = "Key ";
-        str += X + " is not found is lang file.";
-        throw EXCEPTION(X);
-    }
-    return _lang.get(X);
-}
-
-QString Viewer::LANX(const DP::String & X){
-    if (!_lang.Conteins(X))  {
-        DP::String str = "Key ";
-        str += X + " is not found is lang file.";
-        throw EXCEPTION(X);
-    }
-    return QString::fromStdString(_lang.get(X));
 }
 
 void Viewer::resetType(){
@@ -87,6 +79,9 @@ Viewer::Viewer(QWidget *parent) :
     connect(ui->actionCentrOne, SIGNAL(triggered(bool)), this, SLOT(onCentrOneViewer(bool)));
     connect(ui->actionEng, SIGNAL(triggered(bool)), this, SLOT(OnLangENG(bool)));
     connect(ui->actionRus, SIGNAL(triggered(bool)), this, SLOT(OnLangRUS(bool)));
+    connect(ui->rotate_x_2, SIGNAL(valueChanged(int)), this, SLOT(Rotete_x(int)));
+    connect(ui->rotate_y_2, SIGNAL(valueChanged(int)), this, SLOT(Rotata_y(int)));
+    connect(ui->rotate_z_2, SIGNAL(valueChanged(int)), this, SLOT(Rotata_z(int)));
 
     loadSetting(_setting);
 
@@ -147,6 +142,30 @@ void Viewer::changeObject(QString str){
         Hexahedron(_figure);
     Redraw();
 }
+
+#define PI 3.14159265358979323846
+
+void Viewer::Rotete_x(int angle){
+    _figure.RotateX(_prev_rotation.GetX() * (-1) *PI/180);
+    _figure.RotateX(angle * PI / 180);
+    _prev_rotation.SetX(angle);
+    Redraw();
+}
+
+void Viewer::Rotata_y(int angle){
+    _figure.RotateY(_prev_rotation.GetY() * (-1) *PI/180);
+    _figure.RotateY(angle * PI / 180);
+    _prev_rotation.SetY(angle);
+    Redraw();
+}
+
+void Viewer::Rotata_z(int angle){
+    _figure.RotateZ(_prev_rotation.GetZ() * (-1) *PI/180);
+    _figure.RotateZ(angle * PI / 180);
+    _prev_rotation.SetZ(angle);
+    Redraw();
+}
+
 
 void Viewer::onParallelViewer(bool){
     resetType();
@@ -210,4 +229,22 @@ void Viewer::Redraw(){
 
     }
 
+}
+
+DP::String Viewer::LAN(const DP::String & X){
+    if (!_lang.Conteins(X))  {
+        DP::String str = "Key ";
+        str += X + " is not found is lang file.";
+        throw EXCEPTION(X);
+    }
+    return _lang.get(X);
+}
+
+QString Viewer::LANX(const DP::String & X){
+    if (!_lang.Conteins(X))  {
+        DP::String str = "Key ";
+        str += X + " is not found is lang file.";
+        throw EXCEPTION(X);
+    }
+    return QString::fromStdString(_lang.get(X));
 }

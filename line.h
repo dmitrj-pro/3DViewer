@@ -41,22 +41,22 @@ class Line{
         /// Поворот линии вокруг оси OX
         /// <param name="d">Угол поворота</param>
         inline void Rotate3Dx(const T & x){
-            start = Rotate3Dx(start, x);
-            end = Rotate3Dx(end, x);
+            start = Operation::Rotate3Dx(start, x);
+            end = Operation::Rotate3Dx(end, x);
         }
 
         /// Поворот линии вокруг оси OY
         /// <param name="d">Угол поворота</param>
         inline void Rotate3Dy(const T & x){
-            start = Rotate3Dy(start, x);
-            end = Rotate3Dy(end, x);
+            start = Operation::Rotate3Dy(start, x);
+            end = Operation::Rotate3Dy(end, x);
         }
 
         /// Поворот линии вокруг оси OZ
         /// <param name="d">Угол поворота</param>
         inline void Rotate3Dz(const T & x){
-            start = Rotate3Dz(start, x);
-            end = Rotate3Dz(end, x);
+            start = Operation::Rotate3Dz(start, x);
+            end = Operation::Rotate3Dz(end, x);
         }
 
         /// Изменение размера точки (В 3D НЕ ПРИМЕНЯТЬ)

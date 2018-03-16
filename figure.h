@@ -20,8 +20,8 @@ class Figure{
         DP_add_getter_name(List<Line<T>>, lines, Lines)
 
         #define FOR_(X) \
-            for (auto x = lines.begin(); x != lines.end(); x++){ \
-                (*x).X; \
+            for (auto tt = lines.begin(); tt != lines.end(); tt++){ \
+                (*tt).X; \
             }
 
         void clear(){

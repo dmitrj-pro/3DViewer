@@ -9,3 +9,8 @@ lang=Language
 type=Type of projection
 parallel=Parallel projection
 central-one=single-point Central
+
+[.control]
+rotate_x=Turn on X
+rotate_y=Turn on Y
+rotate_z=Turn on Z

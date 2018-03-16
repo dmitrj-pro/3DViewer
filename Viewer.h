@@ -28,6 +28,9 @@ public slots:
     void onCentrOneViewer(bool);
     void OnLangENG(bool);
     void OnLangRUS(bool);
+    void Rotete_x(int);
+    void Rotata_y(int);
+    void Rotata_z(int);
 
 private:
     void Redraw();
@@ -35,6 +38,7 @@ private:
     void LoadLang();
     void SaveSetting();
     void setLang(QString);
+    Point<int> _prev_rotation;
 
     DP::String LAN(const DP::String & str);
     QString LANX(const DP::String & str);

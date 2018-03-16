@@ -21,7 +21,7 @@ class Matrix{
             for (UInt i = 0; i < m; i++){
                 _matr[i] = new T [n];
                 for (UInt j = 0; j < n; j++){
-                    _matr[i][j] = T();
+                    _matr[i][j] = 0;
                 }
             }
         }
@@ -73,11 +73,23 @@ class Matrix{
             for (UInt i = 0; i < m1.m; i++)
                 for (UInt j = 0; j < m2.n; j++)
                     for (UInt k = 0; k < m2.m; k++)
-                        res._matr[i][j] += m1._matr[i][j] * m2._matr[k][j];
+                        res._matr[i][j] += m1._matr[i][k] * m2._matr[k][j];
 
             return res;
         }
+        /*public Matrix Mult(Matrix m2) {
+            Matrix res = new Matrix(m2._n, _m);
 
+            for (int i = 0; i < _m; i++) {
+                for (int j = 0; j < m2._n; j++) {
+                    for (int k = 0; k < m2._m; k++) {
+                        res._matr[i][j] += _matr[i][k] * m2._matr[k][j];
+                    }
+                }
+            }
+
+            return res;
+        }*/
 };
 
 #endif // MATRIX

@@ -9,3 +9,8 @@ lang=Язык
 type=Тип проекции
 parallel=Параллельная проекция
 central-one=Центральная одноточечная
+
+[.control]
+rotate_x=Поворот по X
+rotate_y=Поворот по Y
+rotate_z=Поворот по Z
