@@ -214,56 +214,6 @@ namespace Operation {
     inline Point<T> Scale(const Point<T> & p, const T & x, const T & y, const T & z){
         return ToPoint(p.ToMatrix() * GetMScale(x, y, z));
     }
-
-
-
-
-    /*
-    public double Det(){
-        double det = 1;
-        const double EPS = 1E-9;
-        double[][] b = new double[1][];
-        b[0] = new double[_n];
-        //проходим по строкам
-        for (int i=0; i<_n; ++i) {
-            //присваиваем k номер строки
-            int k = i;
-            //идем по строке от i+1 до конца
-            for (int j=i+1; j<_n; ++j)
-                //проверяем
-                if (Math.Abs(_matr[j] [i]) > Math.Abs(_matr[k][i]))
-                    //если равенство выполняется то k присваиваем j
-                    k = j;
-            //если равенство выполняется то определитель приравниваем 0 и выходим из программы
-            if (Math.Abs(_matr[k] [i]) < EPS) {
-                det = 0;
-                break;
-            }
-            //меняем местами a[i] и a[k]
-            b[0] = _matr[i];
-            _matr[i] = _matr[k];
-            _matr[k] = b[0];
-            //если i не равно k
-            if (i != k)
-                //то меняем знак определителя
-                det = -det;
-            //умножаем det на элемент a[i][i]
-            det *= _matr[i][i];
-            //идем по строке от i+1 до конца
-            for (int j=i+1; j<_n; ++j)
-                //каждый элемент делим на a[i][i]
-                _matr[i][j] /= _matr[i][i];
-            //идем по столбцам
-            for (int j=0; j<_n; ++j)
-                //проверяем
-                if ((j != i)&&(Math.Abs(_matr[j][i]) > EPS))
-                    //если да, то идем по k от i+1
-                    for (k = i+1; k < _n; ++k)
-                        _matr[j][k] -= _matr[i][k] * _matr[j][i];
-        }
-        return det;
-    }
-    */
 }
 #endif // 2DOPERATION
 

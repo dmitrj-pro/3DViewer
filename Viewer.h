@@ -27,10 +27,14 @@ public:
 public slots:
     void changeObject(QString str);
     void resizeEvent(QResizeEvent* event);
+
     void onParallelViewer(bool);
     void onCentrOneViewer(bool);
+    void onCentrOneWithClipping(bool);
+
     void OnLangENG(bool);
     void OnLangRUS(bool);
+
     void Rotete_x(int);
     void Rotata_y(int);
     void Rotata_z(int);

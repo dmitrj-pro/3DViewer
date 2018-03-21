@@ -152,6 +152,7 @@
      </property>
      <addaction name="actionParallel"/>
      <addaction name="actionCentrOne"/>
+     <addaction name="actionDinamyc_ots"/>
     </widget>
     <addaction name="menuDraw_Type"/>
    </widget>
@@ -207,6 +208,14 @@
    </property>
    <property name="text">
     <string>Eng</string>
+   </property>
+  </action>
+  <action name="actionDinamyc_ots">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Dinamyc_ots</string>
    </property>
   </action>
  </widget>

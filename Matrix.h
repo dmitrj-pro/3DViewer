@@ -77,19 +77,55 @@ class Matrix{
 
             return res;
         }
-        /*public Matrix Mult(Matrix m2) {
-            Matrix res = new Matrix(m2._n, _m);
+        T Det() const {
+            T det = 1;
+            const T EPS = 1E-9;
+            T **  b = new T * [1];
+            b[0] = new T[n];
+            for (UInt i = 0; i < n; i++)
+                b[0][i] = 0;
 
-            for (int i = 0; i < _m; i++) {
-                for (int j = 0; j < m2._n; j++) {
-                    for (int k = 0; k < m2._m; k++) {
-                        res._matr[i][j] += _matr[i][k] * m2._matr[k][j];
-                    }
+            //проходим по строкам
+            for (UInt i = 0; i < n; ++i) {
+                //присваиваем k номер строки
+                int k = i;
+                //идем по строке от i+1 до конца
+                for (UInt j=i+1; j<n; ++j)
+                    //проверяем
+                    if (abs(_matr[j] [i]) > abs(_matr[k][i]))
+                        //если равенство выполняется то k присваиваем j
+                        k = j;
+                //если равенство выполняется то определитель приравниваем 0 и выходим из программы
+                if (abs(_matr[k] [i]) < EPS) {
+                    det = 0;
+                    break;
                 }
+                //меняем местами a[i] и a[k]
+                b[0] = _matr[i];
+                _matr[i] = _matr[k];
+                _matr[k] = b[0];
+                //если i не равно k
+                if (i != k)
+                    //то меняем знак определителя
+                    det = -det;
+                //умножаем det на элемент a[i][i]
+                det *= _matr[i][i];
+                //идем по строке от i+1 до конца
+                for (int j=i+1; j < n; ++j)
+                    //каждый элемент делим на a[i][i]
+                    _matr[i][j] /= _matr[i][i];
+                //идем по столбцам
+                for (int j=0; j < n; ++j)
+                    //проверяем
+                    if ((j != i)&&(abs(_matr[j][i]) > EPS))
+                        //если да, то идем по k от i+1
+                        for (k = i+1; k < n; ++k)
+                            _matr[j][k] -= _matr[i][k] * _matr[j][i];
             }
-
-            return res;
-        }*/
+            delete [] b[0];
+            delete [] b;
+            return det;
+        }
 };
 
 #endif // MATRIX
